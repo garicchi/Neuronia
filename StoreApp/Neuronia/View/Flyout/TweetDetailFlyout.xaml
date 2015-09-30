@@ -1,0 +1,42 @@
+﻿<SettingsFlyout
+    x:Class="Neuronia.View.TweetDetailFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:Neuronia.Converter"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    x:Uid="TweetDetailFlyout"
+    d:DesignWidth="346" BackClick="SettingsFlyout_BackClick" Style="{StaticResource NeuroniaSettingsFlyoutStyle}"  Title="{Binding UserDetail.UserInformation.screen_name}" Background="{Binding Setting.AppTheme.SettingsFlyoutBackground,Converter={StaticResource uiThemeToBrushConverter}}" d:DataContext="{d:DesignData /SampleData/NeuroniaViewModel.xaml}">
+
+        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="260">
+            <Grid Height="205">
+                <Image Source="{Binding TweetDetail.Row.Tweet.user.profile_image_url}" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" />
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Margin="10,129,0,0" Text="{Binding TweetDetail.Row.Tweet.user.name}" VerticalAlignment="Top"/>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Margin="10,147,0,0" Text="{Binding TweetDetail.Row.Tweet.user.screen_name}" VerticalAlignment="Top"/>
+            </Grid>
+
+            <ContentControl Content="{Binding TweetDetail.Row.Tweet, Converter={StaticResource tweetTextConverter}}"/>
+            
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="via" FontSize="{StaticResource TimelineFontSize}" />
+        <ContentControl Content="{Binding TweetDetail.Row.Tweet.source,Converter={StaticResource aTagToHyperlinkConverter}}" FontSize="{StaticResource TimelineFontSize}" />
+        </StackPanel>
+        <Button x:Name="btn_viewWeb" Style="{StaticResource NeuroniaButtonStyle}" Content="View Web" HorizontalAlignment="Right" Click="btn_viewWeb_Click"></Button>
+        <Button x:Name="btn_copy" Style="{StaticResource NeuroniaButtonStyle}" Content="Copy Clipboard" HorizontalAlignment="Right" Click="btn_copy_Click"></Button>
+
+        <ListView Grid.Row="2" ItemsSource="{Binding TweetDetail.ReplyList}" Foreground="#FF3E3E3E" SelectionMode="None" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource TimeLineListViewItemStyle}" ItemTemplateSelector="{StaticResource timeLineRowSelector}" ItemTemplate="{StaticResource TweetRowDataTemplate}" />
+
+            
+
+            <!-- 以下の StackPanel では個々のコンテンツ セクションを定義します -->
+
+            <!-- 必要に応じてコンテンツ セクションを以下でさらに定義します -->
+        </StackPanel>
+
+   
+
+    <!-- この StackPanel はコンテンツ セクションの垂直レイアウト用のルート パネルとして機能します -->
+</SettingsFlyout>

@@ -1,0 +1,32 @@
+﻿<SettingsFlyout
+    x:Class="Neuronia.DeleteAccountFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    x:Uid="DeleteAccountFlyout"
+    d:DesignWidth="346" Style="{StaticResource NeuroniaSettingsFlyoutStyle}" Background="{Binding Setting.AppTheme.SettingsFlyoutBackground,Converter={StaticResource uiThemeToBrushConverter}}">
+
+    <!-- この StackPanel はコンテンツ セクションの垂直レイアウト用のルート パネルとして機能します -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!-- 以下の StackPanel では個々のコンテンツ セクションを定義します -->
+
+        <!-- コンテンツ セクション 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+        	<GridView x:Name="gridViewDeleteAccount" ItemTemplate="{StaticResource GridViewAccountDataTemplate}" SelectionMode="Multiple"/>
+        	<Button Style="{StaticResource NeuroniaButtonStyle}" x:Name="btnAccountDelete" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="btnAccountDelete_Click"/>
+
+            <!-- セクション 1 ヘッダー -->
+
+            <!-- セクション 1 ボディ -->
+
+        </StackPanel>
+
+        <!-- 必要に応じてコンテンツ セクションを以下でさらに定義します -->
+
+    </StackPanel>
+</SettingsFlyout>

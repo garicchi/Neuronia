@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="Neuronia.View.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition FromVerticalOffset="40" />
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <TextBlock Text="ホーム" VerticalAlignment="Center" FontSize="24" Padding="10,0,0,0" />
+            
+        </Grid>
+        <Hub Header="Hub" Grid.Row="1">
+            <HubSection Header="HubSection 0">
+                <DataTemplate>
+                    <Grid/>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="HubSection 1">
+                <DataTemplate>
+                    <Grid/>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+        <CommandBar VerticalAlignment="Bottom" Grid.Row="1">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Add" Label="Add" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Grid>
+</Page>

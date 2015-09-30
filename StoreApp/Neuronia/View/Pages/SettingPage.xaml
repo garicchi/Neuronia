@@ -1,0 +1,292 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.View.Pages"
+    xmlns:common="using:Neuronia.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    x:Name="pageRoot"
+    x:Class="Neuronia.View.Pages.SettingPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded">
+
+    <Page.Resources>
+
+
+        <x:Double x:Key="SettingContentTitleFontSize">20</x:Double>
+
+
+    </Page.Resources>
+
+    <!--
+        このグリッドはページのルート パネルとして機能します。
+    -->
+	<Grid Background="{Binding Setting.AppTheme.MainBackground, Converter={StaticResource uiThemeToBrushConverter}}">
+		<Grid.ChildrenTransitions>
+			<TransitionCollection>
+				<EntranceThemeTransition/>
+			</TransitionCollection>
+		</Grid.ChildrenTransitions>
+		<Grid Background="{StaticResource GridBackLayerBackgroundBrush}">
+			<Hub x:Name="hub">
+				<Hub.Header>
+					<!-- [戻る] ボタンおよびページ タイトル-->
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="80"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Button  x:Name="backButton" Margin="-1,-1,39,0"
+							Style="{StaticResource NavigationBackButtonNormalStyle}"
+							VerticalAlignment="Top"
+							AutomationProperties.Name="Back"
+							AutomationProperties.AutomationId="BackButton"
+							AutomationProperties.ItemType="Navigation Button" Click="backButton_Click"/>
+						<TextBlock x:Name="pageTitle" Text="Setting" Style="{StaticResource NeuroniaTextBlockStyle}" Grid.Column="1" 
+							IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Top" FontSize="48"/>
+					</Grid>
+				</Hub.Header>
+                
+				<HubSection Header="General">
+					<DataTemplate>
+						<StackPanel Width="320">
+							<TextBlock Text="TimelineFontSize" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="{StaticResource SettingContentTitleFontSize}" />
+							<Slider Value="{Binding Setting.TimelineFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="6" Maximum="40" Style="{StaticResource NeuroniaSliderStyle}"/>
+							<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Setting.TimelineFontSize}" FontSize="{Binding Setting.TimelineFontSize}"/>
+							<TextBlock Text="MuteAccount" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="{StaticResource SettingContentTitleFontSize}" />
+							<TextBlock Text="@なし「,」区切り" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="12"/>
+							<TextBox Text="{Binding Setting.MuteAccountList, Converter={StaticResource stringToAccountListConverter}, Mode=TwoWay}" Height="105" Style="{StaticResource NeuroniaTextBoxStyle}" TextWrapping="Wrap" FontFamily="{StaticResource MainFontFamily}"/>
+                            <TextBlock Text="Footer" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="{StaticResource SettingContentTitleFontSize}" />
+                            <TextBox Text="{Binding Setting.Footer, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="105" Style="{StaticResource NeuroniaTextBoxStyle}" TextWrapping="Wrap" FontFamily="{StaticResource MainFontFamily}"/>
+
+
+                        </StackPanel>
+
+					</DataTemplate>
+				</HubSection>
+                <HubSection>
+                    <DataTemplate>
+                        <StackPanel Width="320">
+                            <TextBlock Text="Rose Visible" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+                            <ToggleSwitch IsOn="{Binding Setting.IsRoseVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NeuroniaToggleSwitchStyle}"></ToggleSwitch>
+                        </StackPanel>
+                    </DataTemplate>
+                </HubSection>
+				<HubSection Header="Notification">
+					<DataTemplate>
+						<StackPanel Width="320">
+							<ToggleSwitch IsOn="{Binding Setting.IsNotificationEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NeuroniaToggleSwitchStyle}" Grid.Column="1" Header="Notification" OffContent="オフ" OnContent="オン" FontSize="{StaticResource SettingContentTitleFontSize}"  />
+							<TextBlock Text="NotificationType" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+							<RadioButton GroupName="NotificationType" Content="InternalNotification" Style="{StaticResource NeuroniaRadioButtonStyle}" IsChecked="{Binding Setting.IsInternalNotification, Mode=TwoWay}" IsThreeState="False" />
+							<RadioButton GroupName="NotificationType" Content="ToastNotification" Style="{StaticResource NeuroniaRadioButtonStyle}" IsChecked="{Binding Setting.IsToastNotification, Mode=TwoWay}" IsThreeState="False" />
+							<ToggleSwitch IsOn="{Binding Setting.IsSoundEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NeuroniaToggleSwitchStyle}" Grid.Column="1" Header="Sound" OffContent="オフ" OnContent="オン" FontSize="{StaticResource SettingContentTitleFontSize}"  />
+
+						</StackPanel>
+					</DataTemplate>
+
+				</HubSection>
+                <HubSection Header="KeyBindings">
+                    <DataTemplate>
+                        <StackPanel Width="320">
+                            
+                            <TextBlock Text="Tweet" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+                            <TextBlock Text=" Ctrl + Enter" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+                            <TextBlock Text="NextTab" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+                            <TextBlock Text=" Ctrl + J" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+                            <TextBlock Text="PreviousTab" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+
+                            <TextBlock Text=" Ctrl + K" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" />
+
+                        </StackPanel>
+                    </DataTemplate>
+
+                </HubSection>
+                <HubSection Header="ThemeColor" x:Name="sectionTheme">
+					<DataTemplate>
+						<StackPanel Width="320">
+							<Rectangle Stroke="White" Width="100" Height="100">
+								<Rectangle.Fill>
+									<SolidColorBrush Color="{Binding Setting.AppTheme.AppTheme}"/>
+								</Rectangle.Fill>
+							</Rectangle>
+							<Button Content="Select" Width="100" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right">
+								<Button.Flyout>
+                                    <Flyout  FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+										<StackPanel Width="350" Height="350">
+											<ListView ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}"  Height="300" SelectedItem="{Binding Setting.AppTheme.AppTheme, Converter={StaticResource selectedItemToColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+												<ListView.ItemsPanel>
+													<ItemsPanelTemplate>
+														<WrapGrid Orientation="Horizontal"/>
+													</ItemsPanelTemplate>
+												</ListView.ItemsPanel>
+												<ListView.ItemTemplate>
+													<DataTemplate>
+														<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+													</DataTemplate>
+												</ListView.ItemTemplate>
+                                                
+											</ListView>
+                                            
+										</StackPanel>
+									</Flyout>
+								</Button.Flyout>
+							</Button>
+                            
+                            <TextBlock Text="テーマカラーを変更するには再起動が必要です。アプリを終了しますか？" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" TextWrapping="Wrap"/>
+							<Button Content="Exit" Command="{Binding ExitCommand}" Width="100" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right"/>
+
+
+                            <TextBlock Visibility="Collapsed" Text="ThemeInitialize" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}" TextWrapping="Wrap"/>
+                            <Button Visibility="Collapsed" Content="Initialize" Command="{Binding ResetThemeSettingCommand}" Width="100" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right"/>
+
+                        </StackPanel>
+					</DataTemplate>
+
+				</HubSection>
+				<HubSection Header="ApplicationTheme">
+					<DataTemplate>
+						<StackPanel Width="640">
+                            <Button Style="{StaticResource NeuroniaButtonStyle}" Content="テーマを編集する" Command="{Binding PurchaseApplicationThemeCommand}" HorizontalAlignment="Right"></Button>
+							<TextBlock Text="ApplicationTheme" FontSize="{StaticResource SettingContentTitleFontSize}" Style="{StaticResource NeuroniaTextBlockStyle}"/>
+							<Grid Height="450">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="119*"/>
+									<ColumnDefinition Width="41*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="92*"/>
+									<RowDefinition Height="143*"/>
+									<RowDefinition Height="109*"/>
+									<RowDefinition Height="106*"/>
+								</Grid.RowDefinitions>
+
+                                <Button IsEnabled="{Binding IsPurchase}" Grid.Row="1" Grid.Column="0" Content="MainBackground" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,63,0,42" Height="38" Width="148">
+									<Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+											<StackPanel Width="350" Height="350">
+												<ListView Height="300" ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}" SelectedItem="{Binding Setting.AppTheme.MainBackground, Converter={StaticResource selectedItemToUiBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+													<ListView.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapGrid Orientation="Horizontal"/>
+														</ItemsPanelTemplate>
+													</ListView.ItemsPanel>
+													<ListView.ItemTemplate>
+														<DataTemplate>
+															<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+														</DataTemplate>
+													</ListView.ItemTemplate>
+
+												</ListView>
+                                                <Button Content="SelectImage" Command="{Binding ChangeUIBrushImageCommand}" CommandParameter="MainBackground" Style="{StaticResource NeuroniaButtonStyle}"/>
+											</StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+								<Border Background="{Binding Setting.AppTheme.MainBackground, Converter={StaticResource uiThemeToBrushConverter}}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="130" VerticalAlignment="Center" Width="280" BorderBrush="White" BorderThickness="1" Margin="0,7,0,6"/>
+								<Button IsEnabled="{Binding IsPurchase}" Content="TopAppBar" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="38" Width="148" Margin="0,27">
+                                    <Button.Flyout >
+                                        <Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+											<StackPanel Width="350" Height="350">
+												<ListView Height="300" ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}" SelectedItem="{Binding Setting.AppTheme.TopAppBarBackground, Converter={StaticResource selectedItemToUiBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+													<ListView.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapGrid Orientation="Horizontal"/>
+														</ItemsPanelTemplate>
+													</ListView.ItemsPanel>
+													<ListView.ItemTemplate>
+														<DataTemplate>
+															<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+														</DataTemplate>
+													</ListView.ItemTemplate>
+
+												</ListView>
+                                                <Button Content="SelectImage" Command="{Binding ChangeUIBrushImageCommand}" CommandParameter="TopAppBarBackground" Style="{StaticResource NeuroniaButtonStyle}"/>
+
+                                            </StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+								<Border Background="{Binding Setting.AppTheme.TopAppBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Top" Width="280" BorderBrush="White" BorderThickness="1"/>
+                                <Button IsEnabled="{Binding IsPurchase}" Grid.Row="2" Content="BottomAppBar" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="38" Width="148" Margin="0,68,0,3">
+									<Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+											<StackPanel Width="350" Height="350">
+												<ListView Height="300" ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}" SelectedItem="{Binding Setting.AppTheme.BottomAppBarBackground, Converter={StaticResource selectedItemToUiBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+													<ListView.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapGrid Orientation="Horizontal"/>
+														</ItemsPanelTemplate>
+													</ListView.ItemsPanel>
+													<ListView.ItemTemplate>
+														<DataTemplate>
+															<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+														</DataTemplate>
+													</ListView.ItemTemplate>
+
+												</ListView>
+                                                <Button Content="SelectImage" Command="{Binding ChangeUIBrushImageCommand}" CommandParameter="BottomAppBarBackground" Style="{StaticResource NeuroniaButtonStyle}"/>
+
+                                            </StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+								<Border Background="{Binding Setting.AppTheme.BottomAppBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Center" Width="280" BorderBrush="White" BorderThickness="1" Margin="0,16,0,13"/>
+                                <Button IsEnabled="{Binding IsPurchase}" Grid.Row="3" Content="BottomTweetBar" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="38" Width="148" Margin="0,48,0,20">
+									<Button.Flyout>
+                                        <Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+											<StackPanel Width="350" Height="350">
+												<ListView Height="300" ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}" SelectedItem="{Binding Setting.AppTheme.BottomTweetBarBackground, Converter={StaticResource selectedItemToUiBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+													<ListView.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapGrid Orientation="Horizontal"/>
+														</ItemsPanelTemplate>
+													</ListView.ItemsPanel>
+													<ListView.ItemTemplate>
+														<DataTemplate>
+															<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+														</DataTemplate>
+													</ListView.ItemTemplate>
+
+												</ListView>
+                                                <Button Content="SelectImage" Command="{Binding ChangeUIBrushImageCommand}" CommandParameter="BottomTweetBarBackground" Style="{StaticResource NeuroniaButtonStyle}"/>
+
+                                            </StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+								<Border Background="{Binding Setting.AppTheme.BottomTweetBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Center" Width="280" BorderBrush="White" BorderThickness="1"/>
+                                <Button IsEnabled="{Binding IsPurchase}" Grid.Row="3" Grid.Column="1" Content="SideFlyout" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="38" Width="148" Margin="0,48,0,20">
+									<Button.Flyout>
+										<Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+											<StackPanel Width="350" Height="350">
+												<ListView Height="300" ItemsSource="{Binding Setting.SuggestColorList, Converter={StaticResource colorListToBrushListConverter}}" SelectedItem="{Binding Setting.AppTheme.SettingsFlyoutBackground, Converter={StaticResource selectedItemToUiBrushConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+													<ListView.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapGrid Orientation="Horizontal"/>
+														</ItemsPanelTemplate>
+													</ListView.ItemsPanel>
+													<ListView.ItemTemplate>
+														<DataTemplate>
+															<Rectangle Width="50" Height="50" Fill="{Binding}"/>
+														</DataTemplate>
+													</ListView.ItemTemplate>
+
+												</ListView>
+                                                <Button Content="SelectImage" Command="{Binding ChangeUIBrushImageCommand}" CommandParameter="SettingsFlyoutBackground" Style="{StaticResource NeuroniaButtonStyle}"/>
+
+                                            </StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+								<Border Background="{Binding Setting.AppTheme.SettingsFlyoutBackground, Converter={StaticResource uiThemeToBrushConverter}}" Grid.RowSpan="3" Grid.Row="0" Grid.Column="1" Height="300"  VerticalAlignment="Top" Width="150" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left"/>
+
+							</Grid>
+						</StackPanel>
+					</DataTemplate>
+				</HubSection>
+                
+			</Hub>
+		</Grid>
+	</Grid>
+</Page>

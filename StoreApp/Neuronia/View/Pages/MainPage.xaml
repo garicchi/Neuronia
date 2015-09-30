@@ -1,0 +1,509 @@
+﻿<Page xmlns:Flyout="using:Neuronia.Flyout" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia"
+    xmlns:control="using:Neuronia.Hub.Control"
+    xmlns:common="using:Neuronia.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:Neuronia.View.Pages"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:view="using:Neuronia.View"
+    
+    x:Name="pageRoot"
+    x:Class="Neuronia.View.Pages.MainPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded" >
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="AccountDataTemplate">
+            <Grid x:Name="gridAccount" Width="80" Height="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="26"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding ProfileImageUrl, Mode=TwoWay}" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" Grid.RowSpan="2"/>
+                <Grid Grid.Row="1" Opacity="0.8" Background="{StaticResource AppThemeBrush}">
+                    <TextBlock Text="{Binding ScreenName, Mode=TwoWay}"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="AppBarCloseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,4,12,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Path Data="M0.125,0.25 L0.25,20.875 L69.375,21 L69.5,0.25 z" HorizontalAlignment="Left" Height="21.75" Margin="-0.375,-0.25,0,0" Stretch="Fill" StrokeEndLineCap="Square" UseLayoutRounding="False" VerticalAlignment="Top" Width="70.375" Fill="#00000000" Grid.ColumnSpan="3"/>
+                            <Ellipse HorizontalAlignment="Center" Height="5" Margin="0" StrokeEndLineCap="Square" VerticalAlignment="Center" Width="5"/>
+                            <Ellipse HorizontalAlignment="Center" Height="5" Margin="0" StrokeEndLineCap="Square" VerticalAlignment="Center" Width="5" Grid.Column="1"/>
+                            <Ellipse HorizontalAlignment="Center" Height="5" Margin="0" StrokeEndLineCap="Square" VerticalAlignment="Center" Width="5" Grid.Column="2"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Name="notificationBarStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="gridNotificationBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="50">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CircleEase EasingMode="EaseInOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="gridNotificationBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="gridNotificationBar">
+                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="300"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="gridNotificationBar">
+            	<DiscreteObjectKeyFrame KeyTime="0">
+            		<DiscreteObjectKeyFrame.Value>
+            			<Thickness>0,-50,0,0</Thickness>
+            		</DiscreteObjectKeyFrame.Value>
+            	</DiscreteObjectKeyFrame>
+            	<DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+            		<DiscreteObjectKeyFrame.Value>
+            			<Thickness>0,-50,0,0</Thickness>
+            		</DiscreteObjectKeyFrame.Value>
+            	</DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="gridNotificationBar">
+            	<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="gridNotificationBar">
+            	<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="100"/>
+            	<EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <MenuFlyout x:Key="flyoutMediaPost" MenuFlyoutPresenterStyle="{StaticResource NeuroniaMenuFlyoutPresenterStyle}">
+            <MenuFlyoutItem x:Name="menuFlyoutItemMediaFromCamera" Text="From Camera" Click="menuFlyoutItemMediaFromCamera_Click" />
+            <MenuFlyoutItem x:Name="menuFlyoutItemMediaFromLibrary" Text="From Library" Click="menuFlyoutItemMediaFromLibrary_Click" />
+            <MenuFlyoutItem x:Name="menuFlyoutItemMediaFromClipboard" Visibility="Collapsed" Text="From Clipboard" Click="menuFlyoutItemMediaFromClipboard_Click"  />
+            <MenuFlyoutItem x:Name="menuFlyoutItemMediaDelete" Text="Delete Image" Click="menuFlyoutItemMediaDelete_Click" />
+        </MenuFlyout>
+
+
+    </Page.Resources>
+
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="appBar_Bottom" Background="{Binding Setting.AppTheme.BottomAppBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" BorderBrush="{StaticResource AppThemeBrush}" BorderThickness="2">
+            <StackPanel Orientation="Horizontal" Background="#7F000000">
+                <AppBarButton x:Name="appBarButtonSearch" HorizontalAlignment="Stretch" Label="Search" VerticalAlignment="Stretch" Icon="Find" Click="appBarButtonSearch_Click" Style="{StaticResource NeuroniaAppBarButtonStyle}"/>
+                <AppBarButton x:Name="abbBarButtonImage" Flyout="{StaticResource flyoutMediaPost}" HorizontalAlignment="Stretch" Label="Image" VerticalAlignment="Stretch" Icon="Camera" Style="{StaticResource NeuroniaAppBarButtonStyle}"/>
+                <AppBarToggleButton x:Name="appBarToggleButtonHashLock" IsChecked="{Binding TwitterUIComponent.IsHashTagLock, Mode=TwoWay}" HorizontalAlignment="Stretch" Label="HashLock" VerticalAlignment="Stretch" Icon="Tag"/>
+                <AppBarButton x:Name="appBarAddTimeline" HorizontalAlignment="Stretch" Label="AddTimeline" VerticalAlignment="Stretch" Icon="Add" Click="appBarAddTimeline_Click"/>
+
+                <AppBarButton x:Name="appBarAddTab" HorizontalAlignment="Stretch" Label="AddTab" VerticalAlignment="Stretch" Icon="NewFolder" Click="appBarAddTab_Click"/>
+
+
+                <AppBarButton x:Name="appBarAddAcount" HorizontalAlignment="Stretch" Label="AddAcount" VerticalAlignment="Stretch" Icon="AddFriend" Click="appBarAddAcount_Click"/>
+                <AppBarButton x:Name="appBarButtonDeleteAccount" HorizontalAlignment="Stretch" Label="DeleteAccount" VerticalAlignment="Stretch" Icon="BlockContact" Click="appBarButtonDeleteAccount_Click"/>
+                <AppBarButton x:Name="appBarButtonMentionNeuronia" HorizontalAlignment="Stretch" Label="Neuroniaについてつくぶやく" VerticalAlignment="Stretch" Icon="Like" Click="appBarButtonMentionNeuronia_Click"/>
+
+                <AppBarButton x:Name="appBarButtonSetting" Icon="Setting" Label="Setting" Click="appBarButtonSetting_Click"/>
+                <AppBarButton x:Name="appBarButtonReview" HorizontalAlignment="Stretch" Height="100" Label="Neuroniaをレビューする" VerticalAlignment="Stretch" Width="100" Icon="Emoji2" Click="appBarButtonReview_Click"/>
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
+    <Page.TopAppBar>
+        <AppBar x:Name="appBar_Top" Background="{Binding Setting.AppTheme.TopAppBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" BorderBrush="{StaticResource AppThemeBrush}" BorderThickness="2">
+            <Grid Height="200" Background="#7F000000">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <GridView x:Name="gridViewAccountTop" IsItemClickEnabled="True" Margin="0" ItemTemplate="{StaticResource GridViewAccountDataTemplate}"  ItemsSource="{Binding AccountList}" SelectionMode="None" Grid.Row="1" ItemClick="gridViewAccount_ItemClick" CanDragItems="True" CanReorderItems="True" AllowDrop="True" ItemContainerStyle="{StaticResource gridViewAccountContainerStyle}" />
+                <ListView x:Name="listViewTabTop" SelectionMode="None" IsItemClickEnabled="True" CanDragItems="True" CanReorderItems="True" AllowDrop="True" Grid.Column="1" Margin="5" ItemsSource="{Binding TimelineListTab}" ItemClick="listViewTab_ItemClick" ItemTemplate="{StaticResource TimelineTabItemTemplate}" ItemContainerStyle="{StaticResource TabListViewItemStyle}"/>
+
+            </Grid>
+
+        </AppBar>
+    </Page.TopAppBar>
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid x:Name="gridTimeLineColum" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" ManipulationMode="TranslateX" >
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.5">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CircleEase EasingMode="EaseInOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="MultiTimeline">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="itemsTimeline">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="flipTimeline">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textPostBottom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="imagePostImageBottom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="abbBarButtonImage">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="appBarToggleButtonHashLock">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="80" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="gridBottomTweetBar" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="FlipTimeline">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="itemsTimeline">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="flipTimeline">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                       <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="abbBarButtonImage">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="appBarToggleButtonHashLock">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="-320" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="gridTweetBar" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="-320" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="itemsTimeline" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="-320" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="flipTimeline" d:IsOptimized="True"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="neuroniaRose">
+                        	<DiscreteObjectKeyFrame KeyTime="0">
+                        		<DiscreteObjectKeyFrame.Value>
+                        			<Visibility>Collapsed</Visibility>
+                        		</DiscreteObjectKeyFrame.Value>
+                        	</DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="gridBackground" Background="{Binding Setting.AppTheme.MainBackground, Converter={StaticResource uiThemeToBrushConverter}}"/>
+
+        <Grid x:Name="gridBackLayer" Background="{StaticResource GridBackLayerBackgroundBrush}" >
+
+
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="377*"/>
+
+
+            </Grid.RowDefinitions>
+
+            <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+
+            <StackPanel x:Name="stackPanelRoot" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Orientation="Horizontal" Grid.RowSpan="1" Grid.Row="0" RenderTransformOrigin="0.5,0.5" >
+                <StackPanel.RenderTransform>
+                    <CompositeTransform/>
+                </StackPanel.RenderTransform>
+                <Grid x:Name="gridTweetBar" Width="320" RenderTransformOrigin="0.5,0.5">
+                    <Grid.ChildrenTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition/>
+                        </TransitionCollection>
+                    </Grid.ChildrenTransitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="91*"/>
+                        <RowDefinition Height="200*"/>
+                        <RowDefinition Height="79*"/>
+                        <RowDefinition Height="353*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.Projection>
+                        <PlaneProjection/>
+                    </Grid.Projection>
+                    <Grid.RenderTransform>
+                        <CompositeTransform/>
+                    </Grid.RenderTransform>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <StackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
+                        <Image Source="ms-appx:///Assets/Logo/Logo.png"/>
+                        <TextBlock x:Uid="textAppLogo" Foreground="{StaticResource AppThemeBrush}" FontSize="36" FontFamily="{StaticResource MainFontFamily}"  />
+                    </StackPanel>
+                    <Grid Grid.Row="3">
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnPost" Grid.Column="0" Content="Post" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource AppThemeBrush}" BorderBrush="{StaticResource AppThemeBrush}" Click="btnPost_Click" Width="60" Height="60" Style="{StaticResource TweetButtonStyle}"/>
+                        <Button x:Name="btnMediaPost" Grid.Column="1" AutomationProperties.AcceleratorKey="Control P" Content="Post" Flyout="{StaticResource flyoutMediaPost}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource AppThemeBrush}" BorderBrush="{StaticResource AppThemeBrush}" Width="60" Height="60" Style="{StaticResource NeuroniaMediaButtonStyle}" />
+                        <ToggleButton IsChecked="{Binding TwitterUIComponent.IsHashTagLock, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Foreground="{StaticResource AppThemeBrush}" BorderBrush="{StaticResource AppThemeBrush}" Width="60" Height="60" Style="{StaticResource NeuroniaHashToggleButtonStyle}">
+                            
+                        </ToggleButton>
+
+                    </Grid>
+                    <GridView x:Name="gridViewAccount" IsItemClickEnabled="True" Margin="0" ItemTemplate="{StaticResource GridViewAccountDataTemplate}"  ItemsSource="{Binding AccountList}" SelectionMode="None" Grid.Row="1" ItemClick="gridViewAccount_ItemClick" CanDragItems="True" CanReorderItems="True" AllowDrop="True" ItemContainerStyle="{StaticResource gridViewAccountContainerStyle}" />
+                    <ListView x:Name="listViewTab" ItemsSource="{Binding TimelineListTab}" Margin="0" ItemTemplate="{StaticResource TimelineTabItemTemplate}" SelectionChanged="listViewTab_SelectionChanged" Grid.Row="4" ItemContainerStyle="{StaticResource TabListViewItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" ItemClick="listViewTab_ItemClick" IsItemClickEnabled="True"/>
+                    <Grid x:Name="postTextGrid" Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="inReplyToStatusGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding TwitterUIComponent.InReplyToStatus.user.profile_image_url, Converter={StaticResource stringToUriConverter}}" Width="50" Grid.Column="0" />
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding TwitterUIComponent.InReplyToStatus.user.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontFamily="{StaticResource MainFontFamily}"   />
+                                <TextBlock Grid.Row="1" Text="{Binding TwitterUIComponent.InReplyToStatus.text}" Foreground="{StaticResource ForegroundBrush}" FontFamily="{StaticResource MainFontFamily}"   />
+                            </Grid>
+
+                        </Grid>
+                        <control:TweetTextBox Text="{Binding TwitterUIComponent.PostText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="textPost" Grid.Row="1"  TextWrapping="Wrap" BorderBrush="{StaticResource AppThemeBrush}"  AcceptsReturn="True" FontFamily="{StaticResource MainFontFamily}" Foreground="{StaticResource ForegroundBrush}" Background="#7F000000" Style="{StaticResource NeuroniaTextBoxStyle}" FontSize="{StaticResource TimelineFontSize}" />
+                        <TextBlock Text="{Binding TwitterUIComponent.PostText,Converter={StaticResource postTextToMaxTextContConverter}}"  Grid.Row="1" Foreground="{StaticResource LightForegroundBrush}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" Height="25" Width="80" TextAlignment="Right" FontFamily="{StaticResource MainFontFamily}"/>
+                        <Image x:Name="postImage" Source="{Binding TwitterUIComponent.PostMedia.Data, Converter={StaticResource byteToBitmapImageConverter}}"  Width="80" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.6" Grid.RowSpan="2" />
+                        <ListView Grid.Row="2" x:Name="listViewSuggest" IsItemClickEnabled="True" ItemsSource="{Binding TwitterUIComponent.SuggestList}" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"  ItemContainerStyle="{StaticResource SuggestListViewItemStyle}" ItemClick="listViewSuggest_ItemClick" >
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+
+                    </Grid>
+                </Grid>
+
+
+
+                <!-- Back button and page title -->
+
+                <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+
+
+
+
+                <ListView Visibility="Visible" x:Name="itemsTimeline" ItemsSource="{Binding NowTimelineList, Mode=TwoWay}"  CanDragItems="True" SelectionMode="None" IsSwipeEnabled="True"  AllowDrop="True" CanReorderItems="True" ItemContainerStyle="{StaticResource TimelineListListViewStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled" RenderTransformOrigin="0.5,0.5">
+                	<ListView.RenderTransform>
+                		<CompositeTransform/>
+                	</ListView.RenderTransform>
+                    
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <view:TimeLineControl  DataContext="{Binding}"  />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <FlipView x:Name="flipTimeline" ItemsSource="{Binding NowTimelineList, Mode=TwoWay}" Visibility="Collapsed" Width="{Binding TimelineWidth}" RenderTransformOrigin="0.5,0.5">
+                	<FlipView.RenderTransform>
+                		<CompositeTransform/>
+                	</FlipView.RenderTransform>
+                    
+                    <FlipView.ItemTemplate>
+                        <DataTemplate>
+                            <view:TimeLineControl  DataContext="{Binding}" />
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+
+
+
+            </StackPanel>
+            <Grid x:Name="gridBottomTweetBar" Margin="0" Background="{Binding Setting.AppTheme.BottomTweetBarBackground, Converter={StaticResource uiThemeToBrushConverter}}" VerticalAlignment="Bottom" Height="100" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <CompositeTransform/>
+                </Grid.RenderTransform>
+                <Grid Background="#7F000000">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RenderTransform>
+                        <CompositeTransform/>
+                    </Grid.RenderTransform>
+                    <Grid x:Name="postTextGridBottom" Grid.Row="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <control:TweetTextBox Text="{Binding TwitterUIComponent.PostText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="textPostBottom" Height="60" Grid.Row="0" VerticalAlignment="Bottom" Margin="5,0" TextWrapping="Wrap" AcceptsReturn="True" RenderTransformOrigin="0.452,0.469" FontFamily="{StaticResource MainFontFamily}" FontSize="{StaticResource TimelineFontSize}" Style="{StaticResource NeuroniaTextBoxStyle}" />
+                        <TextBlock Text="{Binding TwitterUIComponent.PostText,Converter={StaticResource postTextToMaxTextContConverter}}"  Grid.Row="0" Foreground="{StaticResource ForegroundBrush}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,6" Style="{StaticResource NeuroniaTextBlockStyle}"/>
+                        <Image x:Name="imagePostImageBottom" Source="{Binding TwitterUIComponent.PostMedia.Data, Converter={StaticResource byteToBitmapImageConverter}}"  Width="80" Height="49" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.6" />
+
+                        <ListView Grid.Row="1" x:Name="listViewSuggestBottom" ItemsSource="{Binding TwitterUIComponent.SuggestList}" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"  ItemContainerStyle="{StaticResource SuggestListViewItemStyle}" IsItemClickEnabled="True" ItemClick="listViewSuggest_ItemClick" >
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Grid>
+                    <Button x:Name="btnPostBottom" Content="Post" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Height="60" MaxWidth="120" Click="btnPostBottom_Click" Style="{StaticResource TweetButtonStyle}" Width="60" Foreground="{StaticResource AppThemeBrush}" BorderBrush="{StaticResource AppThemeBrush}"/>
+                    <Button x:Name="btnOpenAppBar" Content="Button" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="22" Margin="0" Style="{StaticResource AppBarCloseButtonStyle}" Click="btnOpenAppBar_Click"/>
+                    <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Right" Text="{Binding NowTimeStr}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="{StaticResource TimelineFontSize}" Margin="0,0,10,0"/>
+                    <TextBlock  Visibility="Collapsed" Style="{StaticResource NeuroniaTextBlockStyle}" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Right" Text="{Binding ConnectionStatusStr}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="{StaticResource TimelineFontSize}" Margin="0,0,10,0"/>
+
+                </Grid>
+            </Grid>
+            <local:NeuroniaRose x:Name="neuroniaRose" Visibility="{Binding Setting.IsRoseVisible,Converter={StaticResource boolToVisibilityConverter}}" HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom" Width="100" Margin="-50,0,0,50" Opacity="0.7"/>
+        </Grid>
+        <Grid x:Name="gridNotificationBar" Height="50" VerticalAlignment="Top" Margin="0,-50,0,0" Background="{StaticResource AppThemeBrush}" RenderTransformOrigin="0.5,0.5" Opacity="0">
+        	<Grid.Projection>
+        		<PlaneProjection/>
+        	</Grid.Projection>
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="32*"/>
+        		<ColumnDefinition Width="651*"/>
+        	</Grid.ColumnDefinitions>
+            <Grid.RenderTransform>
+                <CompositeTransform/>
+            </Grid.RenderTransform>
+        	<StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+        		<Image Source="{Binding NotifyMessage.TweetMessage.user.profile_image_url}" HorizontalAlignment="Center" Height="45" VerticalAlignment="Center" Width="45" Margin="0,0,0,5"/>
+        		<Grid Width="1302">
+        		
+        			<Grid.RowDefinitions>
+        				<RowDefinition Height="2*"/>
+        				<RowDefinition Height="3*"/>
+        			</Grid.RowDefinitions>
+        			<StackPanel Grid.Row="1" Orientation="Horizontal">
+        				<TextBlock TextWrapping="Wrap" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="16" Text="@" HorizontalAlignment="Center"/>
+        				<TextBlock Text="{Binding NotifyMessage.TweetMessage.user.screen_name}" TextWrapping="Wrap" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="16" Margin="0,0,0,0"/>
+        				<TextBlock Text="{Binding NotifyMessage.TweetMessage.text}" TextWrapping="Wrap" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="16" Margin="20,0,0,0"/>
+        			</StackPanel>
+        			<TextBlock Text="{Binding NotifyMessage.Message}" TextWrapping="Wrap" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="16"/>
+        		</Grid>
+        	</StackPanel>
+        </Grid>
+
+    </Grid>
+
+</Page>

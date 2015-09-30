@@ -1,0 +1,76 @@
+﻿<SettingsFlyout
+    x:Class="Neuronia.Flyout.EditTimelineFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.Flyout"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="EditTimelineFlyout"
+    d:DesignWidth="346" Background="{Binding Setting.AppTheme.SettingsFlyoutBackground,Converter={StaticResource uiThemeToBrushConverter}}">
+
+    <SettingsFlyout.Resources>
+        <DataTemplate x:Key="comboBoxAccountTemplate">
+            <Grid>
+                <TextBlock Text="{Binding ScreenName}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ComboListTemplate">
+            <Grid>
+                <TextBlock Text="{Binding name}"/>
+            </Grid>
+        </DataTemplate>
+    </SettingsFlyout.Resources>
+    <SettingsFlyout.Style>
+    	<StaticResource ResourceKey="NeuroniaSettingsFlyoutStyle"/>
+    </SettingsFlyout.Style>
+    <!--346-->
+    <!-- この StackPanel はコンテンツ セクションの垂直レイアウト用のルート パネルとして機能します -->
+    <ScrollViewer>
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="258">
+        
+        <!-- 以下の StackPanel では個々のコンテンツ セクションを定義します -->
+
+        <!-- コンテンツ セクション 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- セクション 1 ヘッダー -->
+            <TextBlock Text="タイムライン名" Style="{StaticResource NeuroniaTextBlockStyle}"/>
+            <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textTimelineName" Text="{Binding NowEditTimeline.ListTitle,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+            <StackPanel x:Name="stackSearch" Visibility="Collapsed">
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="検索ワード" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textSearchWord" Text="{Binding NowEditTimeline.SearchWord,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel x:Name="stackList" Visibility="Collapsed">
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="リスト" />
+                <ComboBox Style="{StaticResource NeuroniaComboBoxStyle}" x:Name="comboList" ItemTemplate="{StaticResource ComboListTemplate}" />
+            </StackPanel>
+            <StackPanel x:Name="stackUser" Visibility="Collapsed">
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="ユーザースクリーンネーム(@なし)" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textUser" Text="{Binding NowEditTimeline.UserScreenName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <ToggleSwitch Style="{StaticResource NeuroniaToggleSwitchStyle}" x:Name="toggleTimelineFiltering" IsOn="{Binding NowEditTimeline.IsTimelineFiltering,Mode=TwoWay}" Header="タイムラインフィルタリング" Toggled="toggleTimelineFiltering_Toggled"></ToggleSwitch>
+            <TextBlock  Style="{StaticResource NeuroniaTextBlockStyle}" Text="※タイムラインフィルタリングは上級者向けです"/>
+
+            <StackPanel x:Name="stackPanelFiltering" Visibility="Collapsed">
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@なしコンマ「,」区切り"/>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="(例)   garicchi,garicchi_kisei"/>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="抽出アカウント名" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textExtractionAccount" Text="{Binding NowEditTimeline.ExtractionAccountScreenNameStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="100" AcceptsReturn="True"></TextBox>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="除外アカウント名" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textExcludeAccount" Text="{Binding NowEditTimeline.ExcludeAccountScreenNameStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="100" AcceptsReturn="True"></TextBox>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="抽出ワード" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textExtractionWord" Height="100" Text="{Binding NowEditTimeline.ExtractionWordStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"></TextBox>
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="除外ワード" />
+                <TextBox Style="{StaticResource NeuroniaTextBoxStyle}" x:Name="textExcludeWord" Height="100" Text="{Binding NowEditTimeline.ExcludeWordStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"></TextBox>
+
+            </StackPanel>
+            <ToggleSwitch Style="{StaticResource NeuroniaToggleSwitchStyle}" x:Name="toggleNotification" Header="新着通知" IsOn="{Binding NowEditTimeline.IsNewNotification,Mode=TwoWay}"></ToggleSwitch>
+        </StackPanel>
+
+        <!-- 必要に応じてコンテンツ セクションを以下でさらに定義します -->
+
+    </StackPanel>
+    </ScrollViewer>
+</SettingsFlyout>

@@ -1,0 +1,79 @@
+﻿<SettingsFlyout x:Name="settingsFlyout"
+    x:Class="Neuronia.Flyout.UserDetailFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.Flyout"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="{Binding UserDetail.UserInformation.screen_name}"
+    d:DesignWidth="346" Style="{StaticResource NeuroniaSettingsFlyoutStyle}" Background="{Binding Setting.AppTheme.SettingsFlyoutBackground,Converter={StaticResource uiThemeToBrushConverter}}">
+
+    <!-- この StackPanel はコンテンツ セクションの垂直レイアウト用のルート パネルとして機能します -->
+
+    <!-- 以下の StackPanel では個々のコンテンツ セクションを定義します -->
+    <!-- コンテンツ セクション 1-->
+    <FlipView Width="257">
+
+        <StackPanel>
+        <Grid Margin="0" >
+            <Image Source="{Binding UserDetail.UserInformation.profile_background_image_url}" Stretch="Fill" Height="150" ></Image>
+            <Image Source="{Binding UserDetail.UserInformation.profile_image_url}" HorizontalAlignment="Center" Height="100" Margin="0" VerticalAlignment="Center" Width="100" Stretch="Fill" />
+        </Grid>
+        <StackPanel >
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserDetail.UserInformation.screen_name}"  ></TextBlock>
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserDetail.UserInformation.name}"  ></TextBlock>
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserDetail.UserInformation.location}" ></TextBlock>
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserDetail.UserInformation.url}" ></TextBlock>
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserDetail.UserInformation.description}" Foreground="{StaticResource ForegroundBrush}" TextWrapping="Wrap"></TextBlock>
+            
+
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="27*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="0" x:Uid="UserDetailFlyoutFriendsCountText" TextWrapping="Wrap" Text="Follow"/>
+                <TextBlock Margin="0" x:Uid="UserDetailFlyoutFollowesCountText" TextWrapping="Wrap" Text="Followes" Grid.Column="1"/>
+                <TextBlock Margin="0" Text="{Binding UserDetail.UserInformation.friends_count}" TextWrapping="Wrap"  Grid.Row="1"/>
+                <TextBlock Margin="0" Text="{Binding UserDetail.UserInformation.followers_count}" TextWrapping="Wrap"  Grid.Column="1" Grid.Row="1"/>
+
+            </Grid>
+            <Button x:Name="btn_viewWeb" Style="{StaticResource NeuroniaButtonStyle}" Content="View Web" HorizontalAlignment="Right" Click="btn_viewWeb_Click"></Button>
+           
+            <Button x:Name="btn_DirectMessage" Content="DirectMessage" Style="{StaticResource NeuroniaButtonStyle}" HorizontalAlignment="Right">
+                <Button.Flyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+                        <StackPanel Width="200" Height="150">
+                            <ComboBox x:Name="comboBoxDirectMessageAccount" Style="{StaticResource NeuroniaComboBoxStyle}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserInfomation.screen_name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBox x:Name="text_directMessage" Style="{StaticResource NeuroniaTextBoxStyle}" Height="80"></TextBox>
+                            <Button x:Name="btn_sendDirectMessage" Style="{StaticResource NeuroniaButtonStyle}" Content="Send" HorizontalAlignment="Right" Click="btn_sendDirectMessage_Click"></Button>
+                        </StackPanel>
+                        </Flyout>
+                </Button.Flyout>
+            </Button>
+            <Button x:Name="btn_sendMute" Style="{StaticResource NeuroniaButtonStyle}" Content="Mute" HorizontalAlignment="Right" Click="btn_sendMute_Click"></Button>
+
+        </StackPanel>
+        </StackPanel>
+        <ListView  ItemsSource="{Binding UserDetail.TimeLine}" Foreground="#FF3E3E3E" SelectionMode="None" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource TimeLineListViewItemStyle}" ItemTemplateSelector="{StaticResource timeLineRowSelector}" />
+    
+        <!-- セクション 1 ヘッダー -->
+
+
+    
+    </FlipView>
+    <!-- 必要に応じてコンテンツ セクションを以下でさらに定義します -->
+
+</SettingsFlyout>

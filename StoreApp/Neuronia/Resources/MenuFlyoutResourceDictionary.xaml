@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.Resources">
+    <MenuFlyout x:Key="TweetDetailMenuFlyout" MenuFlyoutPresenterStyle="{StaticResource NeuroniaMenuFlyoutPresenterStyle}">
+        <MenuFlyoutItem Text="Reply" Command="{Binding ReplyCommand}"/>
+        <MenuFlyoutItem Text="Favorite" Command="{Binding FavoriteCommand}"/>
+        <MenuFlyoutItem Text="Retweet" Command="{Binding RetweetCommand}"/>
+        <MenuFlyoutItem Text="Quote" Command="{Binding QuoteCommand}"/>
+        <MenuFlyoutItem Text="Description" Command="{Binding DescriptionCommand}" />
+        <MenuFlyoutItem Text="Share" Command="{Binding ShareCommand}" />
+        <MenuFlyoutItem Text="Detail" Command="{Binding TweetDetailCommand}"/>
+        
+    </MenuFlyout>
+</ResourceDictionary>

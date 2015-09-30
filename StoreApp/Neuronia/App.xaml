@@ -1,0 +1,51 @@
+<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:Neuronia" xmlns:localConverter="using:Neuronia.Hub.Converter" xmlns:localSelector="using:Neuronia.Hub.Selector" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="Neuronia.App" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!-- Link Resource Dicrtionary -->
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/BrushResourceDictionary.xaml" />
+        <ResourceDictionary Source="Resources/NumeralResourceDictionary.xaml" />
+        <ResourceDictionary Source="Resources/ControlStyleDictionary.xaml" />
+        <ResourceDictionary Source="Resources/ConsumerResourceDictionary.xaml" />
+        <ResourceDictionary Source="Resources/MenuFlyoutResourceDictionary.xaml" />
+        <ResourceDictionary Source="Resources/ControlTemplateDicrionary.xaml" />
+        <ResourceDictionary Source="Resources/DataTemplateDictionary.xaml" />
+        <ResourceDictionary Source="Resources/ReDefineVisualStateDictionary.xaml" />
+        <ResourceDictionary Source="Resources/FlyoutResourceDictionary.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <!-- Converter -->
+      <localConverter:TweetTextConverter x:Key="tweetTextConverter" />
+      <localConverter:FavoriteConverter x:Key="favoriteConverter" />
+      <localConverter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+      <localConverter:RetweetConverter x:Key="retweetConverter" />
+      <localConverter:StringToUriConverter x:Key="stringToUriConverter" />
+      <localConverter:AtagToHyperlinkConverter x:Key="aTagToHyperlinkConverter" />
+      <localConverter:TweetTimeConverter x:Key="tweetTimeConverter" />
+      <localConverter:DateTimeToTextConverter x:Key="dateTimeToTextConverter" />
+      <localConverter:TweetRowToBrushConverter x:Key="tweetRowToBrushConverter">
+      </localConverter:TweetRowToBrushConverter>
+      <localConverter:ByteToBitmapImageConverter x:Key="byteToBitmapImageConverter">
+      </localConverter:ByteToBitmapImageConverter>
+      <localConverter:ByteToBitmapConverterForBackground x:Key="byteToBitmapConverterForBackground">
+      </localConverter:ByteToBitmapConverterForBackground>
+      <localConverter:ColorToBrushConverter x:Key="colorToBrushConverter">
+      </localConverter:ColorToBrushConverter>
+      <localConverter:UIThemeToBrushConverter x:Key="uiThemeToBrushConverter">
+      </localConverter:UIThemeToBrushConverter>
+      <localConverter:StringToAccountListConverter x:Key="stringToAccountListConverter">
+      </localConverter:StringToAccountListConverter>
+      <localConverter:SelectedItemToColorConverter x:Key="selectedItemToColorConverter">
+      </localConverter:SelectedItemToColorConverter>
+      <localConverter:SelectedItemToUIBrushConverter x:Key="selectedItemToUiBrushConverter">
+      </localConverter:SelectedItemToUIBrushConverter>
+      <localConverter:ColorListToBrushListConverter x:Key="colorListToBrushListConverter">
+      </localConverter:ColorListToBrushListConverter>
+      <localConverter:PostTextToMaxTextCountConverter x:Key="postTextToMaxTextContConverter">
+      </localConverter:PostTextToMaxTextCountConverter>
+      <!-- Selector -->
+      <localSelector:TimelineRowDataTemplateSelector x:Key="timeLineRowSelector" />
+      <FontFamily x:Key="MainFontFamily">Fonts/yugothil.ttf#Yu Gothic</FontFamily>
+      <!--<vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:Neuronia.ViewModel" />-->
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

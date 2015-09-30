@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00DFCF68-7120-4D49-8FC4-49E1B6E33EDE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neuronia.Hub</RootNamespace>
+    <AssemblyName>Neuronia.Hub</AssemblyName>
+    <DefaultLanguage>ja-JP</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Fonts\yugothil.ttf" />
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behavior\ListBoxBehavior.cs" />
+    <Compile Include="Common\AsyncOAuthInitializer.cs" />
+    <Compile Include="Common\NeuroniaModel.cs" />
+    <Compile Include="Common\NeuroniaViewModel.cs" />
+    <Compile Include="Notification\NotificationMessage.cs" />
+    <Compile Include="Common\SharedDispatcher.cs" />
+    <Compile Include="Control\AttachedProgress.cs" />
+    <Compile Include="Control\TweetRichTextBlock.cs" />
+    <Compile Include="Control\TweetTextBox.cs" />
+    <Compile Include="Converter\AtagToHyperlinkConverter.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\ByteToBitmapConverterForBackground.cs" />
+    <Compile Include="Converter\ByteToBitmapImageConverter.cs" />
+    <Compile Include="Converter\ColorListToBrushListConverter.cs" />
+    <Compile Include="Converter\ColorToBrushConverter.cs" />
+    <Compile Include="Converter\DateTimeToTextConverter.cs" />
+    <Compile Include="Converter\FavoriteConverter.cs" />
+    <Compile Include="Converter\PostTextToMaxTextCountConverter.cs" />
+    <Compile Include="Converter\RetweetConverter.cs" />
+    <Compile Include="Converter\SelectedItemToColorConverter.cs" />
+    <Compile Include="Converter\SelectedItemToUIBrushConverter.cs" />
+    <Compile Include="Converter\StringToAccountListConverter.cs" />
+    <Compile Include="Converter\StringToUriConverter.cs" />
+    <Compile Include="Converter\TweetRowToBrushConverter.cs" />
+    <Compile Include="Converter\TweetTextConverter.cs" />
+    <Compile Include="Converter\TweetTimeConverter.cs" />
+    <Compile Include="Converter\UIThemeToBrushConverter.cs" />
+    <Compile Include="Data\DataSerializer.cs" />
+    <Compile Include="Data\SaveData.cs" />
+    <Compile Include="Data\SettingData.cs" />
+    <Compile Include="Data\TwitterData.cs" />
+    <Compile Include="Detail\DetailBase.cs" />
+    <Compile Include="Detail\DirectMessageDetail.cs" />
+    <Compile Include="Detail\Parameter\DetailParameterBase.cs" />
+    <Compile Include="Detail\Parameter\DirectMessageDetailParameter.cs" />
+    <Compile Include="Detail\Parameter\SearchDetailParameter.cs" />
+    <Compile Include="Detail\Parameter\TweetDetailParameter.cs" />
+    <Compile Include="Detail\Parameter\UserDetailParameter.cs" />
+    <Compile Include="Detail\SearchDetail.cs" />
+    <Compile Include="Detail\TweetDetail.cs" />
+    <Compile Include="Detail\UserDetail.cs" />
+    <Compile Include="Common\Messenger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Row\DirectMessageRow.cs" />
+    <Compile Include="Row\NotificationRow.cs" />
+    <Compile Include="Row\NotificationType.cs" />
+    <Compile Include="Row\RowAction.cs" />
+    <Compile Include="Row\RowActionType.cs" />
+    <Compile Include="Row\RowBase.cs" />
+    <Compile Include="Row\RowType.cs" />
+    <Compile Include="Row\TimelineRow.cs" />
+    <Compile Include="Selector\TimeLineRowDataTemplateSelector.cs" />
+    <Compile Include="Tab\TabAction.cs" />
+    <Compile Include="Tab\TabActionType.cs" />
+    <Compile Include="Tab\TimelineTab.cs" />
+    <Compile Include="Timeline\DirectMessageTimeline.cs" />
+    <Compile Include="Timeline\HomeTimeline.cs" />
+    <Compile Include="Timeline\ImageTimeline.cs" />
+    <Compile Include="Timeline\LinkTimeline.cs" />
+    <Compile Include="Timeline\ListTimeline.cs" />
+    <Compile Include="Timeline\MentionTimeline.cs" />
+    <Compile Include="Timeline\NotificationTimeline.cs" />
+    <Compile Include="Timeline\SearchTimeline.cs" />
+    <Compile Include="Timeline\TimelineAction.cs" />
+    <Compile Include="Timeline\TimelineActionType.cs" />
+    <Compile Include="Timeline\TimelineBase.cs" />
+    <Compile Include="Timeline\TimelineType.cs" />
+    <Compile Include="Timeline\UserTimeline.cs" />
+    <Compile Include="UIThemeSet\UIBrush.cs" />
+    <Compile Include="UIThemeSet\UITheme.cs" />
+    <Content Include="Properties\Neuronia.Hub.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neuronia.Core\Neuronia.Core.csproj">
+      <Project>{5fbd2a50-058a-48c8-8386-108291e85718}</Project>
+      <Name>Neuronia.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,33 @@
+﻿<SettingsFlyout
+    x:Class="Neuronia.View.AddTabFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    x:Uid="AddTabFlyout"
+    d:DesignWidth="346" Style="{StaticResource NeuroniaSettingsFlyoutStyle}" Background="{Binding Setting.AppTheme.SettingsFlyoutBackground,Converter={StaticResource uiThemeToBrushConverter}}">
+
+    <!-- この StackPanel はコンテンツ セクションの垂直レイアウト用のルート パネルとして機能します -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="260" >
+
+        <!-- 以下の StackPanel では個々のコンテンツ セクションを定義します -->
+
+        <!-- コンテンツ セクション 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- セクション 1 ヘッダー -->
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="タブ名" FontFamily="{StaticResource MainFontFamily}" Foreground="{StaticResource ForegroundBrush}" FontSize="21.333" />
+            <TextBox x:Name="textTabName" Style="{StaticResource NeuroniaTextBoxStyle}"/>
+            <Button x:Name="btn_addTab" Content="追加" HorizontalAlignment="Right" Click="btn_addTab_Click" Style="{StaticResource NeuroniaButtonStyle}"/>
+            <!-- セクション 1 ボディ -->
+                
+            
+        </StackPanel>
+
+        <!-- 必要に応じてコンテンツ セクションを以下でさらに定義します -->
+
+    </StackPanel>
+</SettingsFlyout>

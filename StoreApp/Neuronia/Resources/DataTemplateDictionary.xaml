@@ -1,0 +1,333 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+    xmlns:control="using:Neuronia.Hub.Control"
+    
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DataContext="{d:DesignData /SampleData/DirectMessageRowSampleData.xaml}">
+	<DataTemplate x:Key="TweetRowDataTemplate">
+        <Grid d:DesignWidth="264.333" Margin="0,0,0,10">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="4"/>
+        		<ColumnDefinition/>
+        	</Grid.ColumnDefinitions>
+           
+            <Rectangle HorizontalAlignment="Left" Fill="{Binding BarColorBrush,Converter={StaticResource colorToBrushConverter}}" Stroke="Black" StrokeThickness="0" Width="4" Opacity="0.5"/>
+        	<StackPanel d:DesignWidth="312.5" Margin="0" Grid.Column="1">
+        		<Grid>
+        			<Grid.ColumnDefinitions>
+        				<ColumnDefinition Width="60"/>
+        				<ColumnDefinition/>
+        			</Grid.ColumnDefinitions>
+        			<Grid.Transitions>
+        				<TransitionCollection>
+        					<AddDeleteThemeTransition/>
+        				</TransitionCollection>
+        			</Grid.Transitions>
+        			<StackPanel Grid.Column="1" >
+        				<StackPanel Orientation="Horizontal" Margin="0">
+        					<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+        					<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+        					<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="/" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+        					<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.name}" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+
+        				</StackPanel>
+        				<!--<ContentControl Content="{Binding Tweet, Converter={StaticResource tweetTextConverter}}" BorderThickness="0" Margin="0,0,5,0">
+        					
+        				</ContentControl>
+                        -->
+                        <control:TweetRichTextBlock Tweet="{Binding Tweet}"></control:TweetRichTextBlock>
+						<!-- <TextBlock Text="{Binding Tweet.text}" TextWrapping="Wrap" Foreground="{StaticResource ForegroundBrush}"/>-->
+        				<Grid>
+        					<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" TextWrapping="Wrap" Text="{Binding Tweet.created_at_time, Converter={StaticResource tweetTimeConverter}}" Foreground="{StaticResource LightForegroundBrush}" TextAlignment="Right" Margin="0" VerticalAlignment="Center" FontSize="10.667" HorizontalAlignment="Left"/>
+        					<StackPanel Height="28" Orientation="Horizontal" HorizontalAlignment="Right">
+        						<Button Content="Button" Command="{Binding ReplyCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource ReplyButtonControlTemplate}" Margin="0,5,5,5"/>
+        						<ToggleButton Command="{Binding FavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource FavoriteToggleButtonStyle}" BorderThickness="1" Background="Transparent" Margin="0,0,5,0"/>
+        						<ToggleButton Command="{Binding RetweetCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Margin="0,0,5,0" Template="{StaticResource RetweetToggleButtonTemplate}" FontFamily="Global User Interface"/>
+        						<Button x:Name="button" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource DetailButtonTemplate}" Margin="0" Flyout="{StaticResource TweetDetailMenuFlyout}"/>
+        					</StackPanel>
+        				</Grid>
+        			</StackPanel>
+        			<Grid Margin="0,3,0,2" >
+        				<Image Source="{Binding Tweet.user.profile_image_url}" HorizontalAlignment="Center" Height="55" Margin="3,0,2,0" VerticalAlignment="Top" Width="55" Stretch="UniformToFill">
+        					<Interactivity:Interaction.Behaviors>
+        						<Core:EventTriggerBehavior EventName="PointerPressed">
+        							<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+        						</Core:EventTriggerBehavior>
+        					</Interactivity:Interaction.Behaviors>
+        				</Image>
+        			</Grid>
+        		</Grid>
+        		<Grid Height="0.5" Background="{StaticResource ButtonBackGroundBrush}" Opacity="0.4" Visibility="Collapsed"/>
+        	</StackPanel>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="ReTweetRowDataTemplate">
+		<Grid d:DesignWidth="258.5" d:DesignHeight="155" Margin="0,0,0,10">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="0.5"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="4"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+            <Rectangle Fill="{Binding BarColorBrush,Converter={StaticResource colorToBrushConverter}}" Stroke="Black" StrokeThickness="0" Margin="0" Opacity="0.5"/>
+			<Grid Margin="0" Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="0.5"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="60"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.Transitions>
+					<TransitionCollection>
+						<AddDeleteThemeTransition/>
+					</TransitionCollection>
+				</Grid.Transitions>
+				<StackPanel Grid.Column="1" Grid.RowSpan="2">
+					<StackPanel Orientation="Horizontal" Margin="0">
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" HorizontalAlignment="Left" Text="Retweeted By" Foreground="{StaticResource LightForegroundBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Margin="2,0,0,0" Text="@" Foreground="{StaticResource LightForegroundBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.screen_name}" Foreground="{StaticResource LightForegroundBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="0">
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@" Foreground="{StaticResource AppThemeBrush}" FontFamily="Global User Interface" FontSize="{StaticResource TimelineFontSize}"/>
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.retweeted_status.user.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="/" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.retweeted_status.user.name}" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+					</StackPanel>
+                    <control:TweetRichTextBlock Tweet="{Binding Tweet}"></control:TweetRichTextBlock>
+
+                    <Grid>
+						<!-- <TextBlock Text="{Binding Tweet.retweeted_status.text}" Foreground="Black" TextWrapping="Wrap"/>-->
+						<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" TextWrapping="Wrap" Text="{Binding Tweet.created_at_time, Converter={StaticResource tweetTimeConverter}}" Foreground="{StaticResource LightForegroundBrush}" TextAlignment="Right" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10.667"/>
+						<!-- <TextBlock Text="{Binding Tweet.retweeted_status.text}" Foreground="Black" TextWrapping="Wrap"/>-->
+						<StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
+							<Button Content="Button" Command="{Binding ReplyCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource ReplyButtonControlTemplate}" Margin="0,5,5,5" Padding="12,4"/>
+							<ToggleButton Command="{Binding FavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource FavoriteToggleButtonStyle}" BorderThickness="1" Background="Transparent" Margin="0,0,5,0" Padding="12,4,12,5"/>
+							<ToggleButton Command="{Binding RetweetCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Margin="0,0,5,0" Template="{StaticResource RetweetToggleButtonTemplate}" FontFamily="Global User Interface" Padding="12,4,12,5"/>
+							<Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource DetailButtonTemplate}" Margin="0" Flyout="{StaticResource TweetDetailMenuFlyout}"/>
+						</StackPanel>
+					</Grid>
+				</StackPanel>
+				<Grid Width="60" Height="60" Margin="0,10,0,5">
+					<Grid HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="60">
+						<Image Source="{Binding Tweet.retweeted_status.user.profile_image_url}" HorizontalAlignment="Left" Height="40" Margin="0" VerticalAlignment="Top" Width="40">
+							<Interactivity:Interaction.Behaviors>
+								<Core:EventTriggerBehavior EventName="PointerPressed">
+									<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.retweeted_status.user.screen_name}"/>
+								</Core:EventTriggerBehavior>
+							</Interactivity:Interaction.Behaviors>
+						</Image>
+						<Image Source="{Binding Tweet.user.profile_image_url}" HorizontalAlignment="Left" Height="30" Margin="31,29,-1,0" VerticalAlignment="Top" Width="30">
+							<Interactivity:Interaction.Behaviors>
+								<Core:EventTriggerBehavior EventName="PointerPressed">
+									<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+								</Core:EventTriggerBehavior>
+							</Interactivity:Interaction.Behaviors>
+						</Image>
+					</Grid>
+				</Grid>
+			</Grid>
+			<Grid Height="0.5" Margin="0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Background="{StaticResource ButtonBackGroundBrush}" Opacity="0.4" Visibility="Collapsed"/>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="MyTweetRowDataTemplate">
+		<Grid d:DesignWidth="225.5" Margin="0,0,0,10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="4"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+            <Rectangle Fill="{Binding BarColorBrush,Converter={StaticResource colorToBrushConverter}}" HorizontalAlignment="Left" Stroke="Black" StrokeThickness="0" Width="4" Opacity="0.5"/>
+			<StackPanel d:DesignWidth="251.5" Grid.Column="1" Margin="0,0,0,5">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Grid.Transitions>
+						<TransitionCollection>
+							<AddDeleteThemeTransition/>
+						</TransitionCollection>
+					</Grid.Transitions>
+					<StackPanel Grid.Column="1" >
+						<StackPanel Orientation="Horizontal" Margin="0">
+							<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+							<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+							<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="/" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+							<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.name}" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+
+						</StackPanel>
+                        <control:TweetRichTextBlock Tweet="{Binding Tweet}"></control:TweetRichTextBlock>
+
+                        <!-- <TextBlock Text="{Binding Tweet.text}" TextWrapping="Wrap" Foreground="{StaticResource ForegroundBrush}"/>-->
+						<Grid>
+							<StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
+								<Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource DeleteButtonControlTemplate}" Margin="0,0,15,0">
+									<Interactivity:Interaction.Behaviors>
+										<Core:EventTriggerBehavior EventName="Click">
+											<Core:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+										</Core:EventTriggerBehavior>
+									</Interactivity:Interaction.Behaviors>
+								</Button>
+								<Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Template="{StaticResource DetailButtonTemplate}" Flyout="{StaticResource TweetDetailMenuFlyout}"/>
+							</StackPanel>
+							<TextBlock TextWrapping="Wrap" Text="{Binding Tweet.created_at_time, Converter={StaticResource tweetTimeConverter}}" Foreground="{StaticResource LightForegroundBrush}" TextAlignment="Right" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource NeuroniaTextBlockStyle}" FontSize="10.667"/>
+						</Grid>
+					</StackPanel>
+					<Grid Margin="0,3,0,2" >
+						<Image Source="{Binding Tweet.user.profile_image_url}" HorizontalAlignment="Center" Height="55" Margin="0" VerticalAlignment="Top" Width="55">
+							<Interactivity:Interaction.Behaviors>
+								<Core:EventTriggerBehavior EventName="PointerPressed">
+									<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+								</Core:EventTriggerBehavior>
+							</Interactivity:Interaction.Behaviors>
+						</Image>
+					</Grid>
+				</Grid>
+				<Grid Height="0.5" Background="{StaticResource ButtonBackGroundBrush}" Opacity="0.4" Visibility="Collapsed"/>
+			</StackPanel>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="TimelineTabItemTemplate">
+		<Grid Height="40" d:DesignWidth="220">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="30"/>
+			</Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding TabTitle}" Margin="0" VerticalAlignment="Center" FontFamily="{StaticResource MainFontFamily}" FontSize="18.667"/>
+			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Global User Interface" Grid.Column="1" Height="30" Style="{StaticResource NeuroniaTimelineMenuButtonStyle}">
+				<Button.Flyout>
+                    <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource NeuroniaMenuFlyoutPresenterStyle}">
+						<MenuFlyoutItem Text="削除" Command="{Binding DeleteTimelineTabCommand}"/>
+						<MenuFlyoutItem Text="編集" Command="{Binding EditTimelineTabCommand}"/>
+					</MenuFlyout>
+				</Button.Flyout>
+			</Button>
+			<Path Visibility="{Binding IsNowTab, Converter={StaticResource boolToVisibilityConverter}}" Data="M64.75,-6.25 L64.75,13.5 L71.25,6.5 L77.25,13.75 L77,-6.25 z" Fill="{StaticResource AppThemeBrush}" HorizontalAlignment="Left" Height="21" Margin="30,-10,0,0" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="13.5"/>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="TimelineComboItemTemplate">
+		<Grid Width="96">
+            <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding ''}"/>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="GridViewAccountDataTemplate">
+		<Grid x:Name="gridAccount" Width="80" Height="80">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="25"/>
+			</Grid.RowDefinitions>
+			<Image Source="{Binding UserInfomation.profile_image_url, Mode=TwoWay}" Grid.RowSpan="2" Margin="0"/>
+			<Grid Grid.Row="1" Opacity="0.8" Background="{StaticResource AppThemeBrush}">
+                <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding UserInfomation.screen_name, Mode=TwoWay}" FontFamily="{StaticResource MainFontFamily}"/>
+			</Grid>
+			<Path Data="M66,29.75 L77.9902,16.61 L90,29.5 L89.7598,-6.50667 L65.9804,-6.50667 z" Fill="{StaticResource AppThemeBrush}" Visibility="{Binding IsActive, Converter={StaticResource boolToVisibilityConverter}}" HorizontalAlignment="Right" Height="37.25" Margin="0,-7,5,0" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" Width="25" StrokeThickness="0"/>
+		</Grid>
+	</DataTemplate>
+	<DataTemplate x:Key="DirectMessageRowDataTemplate">
+		<StackPanel>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="60"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.Transitions>
+					<TransitionCollection>
+						<AddDeleteThemeTransition/>
+					</TransitionCollection>
+				</Grid.Transitions>
+				<StackPanel Grid.Column="1" >
+					<TextBlock TextWrapping="Wrap" Text="{Binding DirectMessage.created_at}" Foreground="{StaticResource ForegroundBrush}" TextAlignment="Right" FontSize="{StaticResource TimelineFontSize}"/>
+					<StackPanel Orientation="Horizontal" Margin="0">
+                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding DirectMessage.sender.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="/" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding DirectMessage.sender.name}" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+
+					</StackPanel>
+                    <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding DirectMessage.text}" TextWrapping="Wrap" FontSize="{StaticResource TimelineFontSize}" />
+                    <!--
+					<ContentControl Content="{Binding Tweet, Converter={StaticResource tweetTextConverter}}" BorderThickness="0" Margin="0,0,5,0"/>
+                    
+                    -->
+<!-- <TextBlock Text="{Binding Tweet.text}" TextWrapping="Wrap" Foreground="{StaticResource ForegroundBrush}"/>-->
+					<StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
+						
+						<Button x:Name="button" Command="{Binding DirectMessageCommand}" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Template="{StaticResource DetailButtonTemplate}" Margin="0" />
+					</StackPanel>
+				</StackPanel>
+				<Grid Margin="0,3,0,2" >
+					<Image Source="{Binding DirectMessage.sender.profile_image_url}" HorizontalAlignment="Center" Height="25" Margin="0,25,35,0" VerticalAlignment="Top" Width="25">
+						<Interactivity:Interaction.Behaviors>
+							<Core:EventTriggerBehavior EventName="PointerPressed">
+								<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+							</Core:EventTriggerBehavior>
+						</Interactivity:Interaction.Behaviors>
+					</Image>
+					<Image Source="{Binding DirectMessage.recipient.profile_image_url}" HorizontalAlignment="Center" Height="25" Margin="35,25,0,0" VerticalAlignment="Top" Width="25">
+						<Interactivity:Interaction.Behaviors>
+							<Core:EventTriggerBehavior EventName="PointerPressed">
+								<Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+							</Core:EventTriggerBehavior>
+						</Interactivity:Interaction.Behaviors>
+					</Image>
+					<Path Data="M5.25033,62.5091 L41.3337,62.3333 L41.3338,54.337 L50.6672,64.9991 L41.3338,74.9946 L41.3338,68.3309 L5.25033,68.4976 z" Fill="{StaticResource AppThemeBrush}" HorizontalAlignment="Left" Height="16.167" Margin="10,55,0,0" Stretch="Fill" Stroke="{StaticResource AppThemeBrush}" UseLayoutRounding="False" VerticalAlignment="Top" Width="36.667"/>
+				</Grid>
+			</Grid>
+			<Grid Height="0.5" Background="{StaticResource AppThemeBrush}" Opacity="0.4" Visibility="Collapsed"/>
+		</StackPanel>
+	</DataTemplate>
+    <DataTemplate x:Key="NotificationRowDataTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="{Binding BarColorBrush,Converter={StaticResource colorToBrushConverter}}" HorizontalAlignment="Left" Stroke="Black" StrokeThickness="0" Width="4" Opacity="0.5"/>
+            <StackPanel d:DesignWidth="312.5" Margin="0" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Transitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                        </TransitionCollection>
+                    </Grid.Transitions>
+                    <StackPanel Grid.Column="1" >
+                        <TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Message}" Margin="0,0,16,0" FontSize="{StaticResource TimelineFontSize}" Foreground="{StaticResource ForegroundBrush}"/>
+                    	<StackPanel Orientation="Horizontal" Margin="0">
+                    		<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="@" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+                    		<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.screen_name}" Foreground="{StaticResource AppThemeBrush}" FontSize="{StaticResource TimelineFontSize}"/>
+                    		<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="/" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+                    		<TextBlock Style="{StaticResource NeuroniaTextBlockStyle}" Text="{Binding Tweet.user.name}" Foreground="{StaticResource LightForegroundBrush}" Margin="0,0,0,0" FontSize="{StaticResource TimelineFontSize}"/>
+
+                    	</StackPanel>
+                    	<ContentControl Content="{Binding Tweet, Converter={StaticResource tweetTextConverter}}" BorderThickness="0" Margin="0,0,5,0"/>
+                        <!-- <TextBlock Text="{Binding Tweet.text}" TextWrapping="Wrap" Foreground="{StaticResource ForegroundBrush}"/>-->
+                        
+                    </StackPanel>
+                    <Grid Margin="0,3,0,2" >
+                        <Image Source="{Binding Tweet.user.profile_image_url}" HorizontalAlignment="Center" Height="55" Margin="3,0,2,0" VerticalAlignment="Top" Width="55" Stretch="UniformToFill">
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:EventTriggerBehavior EventName="PointerPressed">
+                                    <Core:InvokeCommandAction Command="{Binding UserDetailCommand}" CommandParameter="{Binding Tweet.user.screen_name}"/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </Image>
+                    </Grid>
+                </Grid>
+                <Grid Height="0.5" Background="{StaticResource AppThemeBrush}" Opacity="0.4" Visibility="Collapsed"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+    
+    
+</ResourceDictionary>

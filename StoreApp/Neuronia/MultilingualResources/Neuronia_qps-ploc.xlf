@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="ja-JP" target-language="qps-ploc" original="Neuronia_Multilingual.prilog.xml" tool-id="MultilingualAppToolkit" product-name="Neuronia" product-version="1.0.0.0" build-num="0">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="3.1.1250.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="Resources">
+        <trans-unit translate="yes" id="Resources\UserDetailFlyoutFriendsCountText\Text" xml:space="preserve">
+          <source>Follow</source>
+          <target state="new">Follow</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\UserDetailFlyoutFollowesCountText\Text" xml:space="preserve">
+          <source>Follower</source>
+          <target state="new">Follower</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\AppSettingPageTitle\Text" xml:space="preserve">
+          <source>Setting</source>
+          <target state="new">Setting</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\TweetDetailFlyout\Title" xml:space="preserve">
+          <source>詳細</source>
+          <target state="new">詳細</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\textAppLogo\Text" xml:space="preserve">
+          <source>Neuronia</source>
+          <target state="new">Neuronia</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\DeleteAccountFlyout\Title" xml:space="preserve">
+          <source>アカウント削除</source>
+          <target state="new">アカウント削除</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\CreateTimelineFlyout\Title" xml:space="preserve">
+          <source>タイムライン追加</source>
+          <target state="new">タイムライン追加</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\AuthenticationFlyout\Title" xml:space="preserve">
+          <source>Twitter認証</source>
+          <target state="new">Twitter認証</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\AppSettingFlyout\Title" xml:space="preserve">
+          <source>設定</source>
+          <target state="new">設定</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\AddTabFlyout\Title" xml:space="preserve">
+          <source>タブ追加</source>
+          <target state="new">タブ追加</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

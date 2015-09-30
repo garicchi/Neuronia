@@ -1,0 +1,5 @@
+MainPackage=C:\Users\garicchi\Documents\GitHub\Neuronia\Neuronia\bin\Release\Neuronia_2.2.0.1_Bundle\Neuronia_2.2.0.1_AnyCPU.appx
+SymbolPackage=C:\Users\garicchi\Documents\GitHub\Neuronia\Neuronia\AppPackages\Neuronia_2.2.0.1_Test\Neuronia_2.2.0.1_AnyCPU.appxsym
+ResourcePack=C:\Users\garicchi\Documents\GitHub\Neuronia\Neuronia\bin\Release\Neuronia_2.2.0.1_Bundle\Neuronia_2.2.0.1_language-ja.appx
+ResourcePack=C:\Users\garicchi\Documents\GitHub\Neuronia\Neuronia\bin\Release\Neuronia_2.2.0.1_Bundle\Neuronia_2.2.0.1_scale-140.appx
+ResourcePack=C:\Users\garicchi\Documents\GitHub\Neuronia\Neuronia\bin\Release\Neuronia_2.2.0.1_Bundle\Neuronia_2.2.0.1_scale-180.appx

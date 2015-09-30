@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.Resources" xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core">
+	<Flyout x:Key="ImagePreviewFlyout" FlyoutPresenterStyle="{StaticResource NeuroniaFlyoutPresenterStyle}">
+		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="64"/>
+			</Grid.RowDefinitions>
+			<Image Width="400" Height="400" Source="{Binding PreviewImageUri}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+			<StackPanel Margin="0" Grid.Row="1" Orientation="Horizontal">
+				<Button Command="{Binding ImageBrowseCommand}" Content="Browser" Style="{StaticResource NeuroniaButtonStyle}"/>
+				<Button Command="{Binding SavePreviewImageCommand}" Content="Save" Style="{StaticResource NeuroniaButtonStyle}"/>
+			</StackPanel>
+		</Grid>
+	</Flyout>
+	
+    
+</ResourceDictionary>

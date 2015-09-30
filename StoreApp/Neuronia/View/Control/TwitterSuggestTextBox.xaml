@@ -1,0 +1,55 @@
+﻿<UserControl
+    x:Class="Neuronia.View.TwitterSuggestTextBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neuronia.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="200"
+    d:DesignWidth="400">
+    
+	<UserControl.Resources>
+		
+		<Style x:Key="SuggestListViewItemStyle" TargetType="ListViewItem">
+			<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+			<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="TabNavigation" Value="Local"/>
+			<Setter Property="IsHoldingEnabled" Value="True"/>
+			<Setter Property="Margin" Value="0,0,18,2"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="VerticalContentAlignment" Value="Top"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListViewItem">
+						<ListViewItemPresenter CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" ContentMargin="4" ContentTransitions="{TemplateBinding ContentTransitions}" CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" PointerOverBackgroundMargin="1" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectionCheckMarkVisualEnabled="True" SelectedBorderThickness="{ThemeResource ListViewItemCompactSelectedBorderThemeThickness}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
+	</UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="textBoxTweet" Text="{Binding Text,Mode=TwoWay}" TextChanged="textBoxTweet_TextChanged" FontFamily="Global User Interface" AcceptsReturn="True" TextWrapping="Wrap"/>
+
+        <ListView Name="listViewSuggest" ItemsSource="{Binding SuggestList}" ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" SelectionChanged="listViewSuggest_SelectionChanged" ItemContainerStyle="{StaticResource SuggestListViewItemStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <TextBlock Text="{Binding MaxCountText,Mode=TwoWay}" Foreground="{Binding MaxCountBrush}" Visibility="{Binding IsMaxCountVisibly}" HorizontalAlignment="Right" Margin="0" TextWrapping="Wrap" VerticalAlignment="Bottom" Opacity="0.3" FontSize="24"/>
+
+    </Grid>
+</UserControl>
